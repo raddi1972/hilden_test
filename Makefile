@@ -17,4 +17,4 @@ hilden: parser.o lexer.o Number.o
 	g++ -o output/hilden lexer.o parser.o Number.o
 
 clean: *.o *.c *.h
-	rm *.o *.c *h
+	rm *.o *.c *.h
