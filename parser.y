@@ -26,6 +26,7 @@
     KEY_HCHAR "hchar"
     KEY_HSTRING "hstring"
     KEY_HIF "hif"
+    KEY_HELSE "helse"
 
 %token
     OP_SEMI_COL ";"
@@ -53,6 +54,11 @@
 
 input: 
 | stmt ";" input
+| if input
+;
+
+if: "hif" expr "{" input "}" "helse" "{" input "}"
+| "hif" expr "{" input "}"
 ;
 
 stmt: dec | def | expr;

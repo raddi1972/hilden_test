@@ -15,6 +15,7 @@
 "hint" return KEY_HINT;
 "hstring" return KEY_HSTRING;
 "hif" return KEY_HIF;
+"helse" return KEY_HELSE;
 
 "+" return OP_PLUS;//operator
 "-" return OP_MINUS;//operator
