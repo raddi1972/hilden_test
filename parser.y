@@ -106,6 +106,9 @@ idarg: expr ',' idarg | expr;
 ident: IDENTIFIER{printf("identifier\n");};
 
 lit: VAL_HINT {printf("HINT LITERAL: %d\n", $1->get_int_val());}
+| VAL_HFLOAT {printf("FLOAT LITERAL: %f\n", $1->get_float_val());}
+| VAL_HCHAR { printf("HCHAR LITERAL: %c\n", $1->get_char_val()); }
+| VAL_HSTRING { std::cout << $1->get_string_val() << std::endl; }
 ;
 
 type: "hfloat" { printf("hfloat\n"); }

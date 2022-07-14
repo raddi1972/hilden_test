@@ -41,6 +41,20 @@
     return VAL_HINT;
 }
 
+[0-9]*"."[0-9]* { 
+    yylval.num = new Number((float)atof(yytext));
+    return VAL_HFLOAT;
+}//floats
+"'"."'"   {
+        yylval.num = new Number(yytext[0]);
+        return VAL_HCHAR;
+    }//chars
+
+\"(\\.|[^"\\])*\"    {
+    yylval.num = new Number(std::string(yytext));
+    return VAL_HSTRING;
+} //string
+
 [a-zA-Z_][a-zA-Z0-9_]* return IDENTIFIER;
 %%
 
