@@ -10,8 +10,11 @@ lexer.c: lexer.l
 parser.o lexer.o: lexer.c parser.c
 	g++ -c lexer.c parser.c
 
-hilden: parser.o lexer.o
-	g++ -o output/hilden lexer.o parser.o
+Number.o: Number.cc Number.hh
+	g++ -c Number.cc
+
+hilden: parser.o lexer.o Number.o
+	g++ -o output/hilden lexer.o parser.o Number.o
 
 clean: *.o *.c *.h
 	rm *.o *.c *h

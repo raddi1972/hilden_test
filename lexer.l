@@ -36,8 +36,7 @@
 "}" return OP_CLOSE_CURLY;
 
 [0-9]* {
-    Number* num = new Number(atoi(yytext));
-    yylval.num = num;
+    yylval.num = new Number(atoi(yytext));
     return VAL_HINT;
 }
 
@@ -46,7 +45,7 @@
     return VAL_HFLOAT;
 }//floats
 "'"."'"   {
-        yylval.num = new Number(yytext[0]);
+        yylval.num = new Number(yytext[1]);
         return VAL_HCHAR;
     }//chars
 

@@ -6,18 +6,7 @@
     #include <iostream>
     extern FILE* yyin;
     extern int yylex();
-    struct Number {
-    private:
-        int int_val;
-    
-    public:
-        Number(int int_val)
-        : int_val(int_val) {}
-
-        int get_int_val() {
-            return this->int_val;
-        }
-    };
+    #include "Number.hh"
 }
 
 %union {
@@ -27,6 +16,9 @@
 %token IDENTIFIER
 %token 
     <num> VAL_HINT
+    <num> VAL_HFLOAT
+    <num> VAL_HCHAR
+    <num> VAL_HSTRING
 
 %token
     KEY_HINT "hint"
@@ -105,10 +97,10 @@ idarg: expr ',' idarg | expr;
 
 ident: IDENTIFIER{printf("identifier\n");};
 
-lit: VAL_HINT {printf("HINT LITERAL: %d\n", $1->get_int_val());}
-| VAL_HFLOAT {printf("FLOAT LITERAL: %f\n", $1->get_float_val());}
-| VAL_HCHAR { printf("HCHAR LITERAL: %c\n", $1->get_char_val()); }
-| VAL_HSTRING { std::cout << $1->get_string_val() << std::endl; }
+lit: VAL_HINT {printf("HINT LITERAL: %d\n", $1->get_int());}
+| VAL_HFLOAT {printf("FLOAT LITERAL: %f\n", $1->get_float());}
+| VAL_HCHAR { printf("HCHAR LITERAL: %c\n", $1->get_char()); }
+| VAL_HSTRING { std::cout << $1->get_string() << std::endl; }
 ;
 
 type: "hfloat" { printf("hfloat\n"); }

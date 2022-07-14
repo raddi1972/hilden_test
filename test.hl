@@ -1,1 +1,1 @@
-hint hello = 5;
+hstring hello =  'c';
