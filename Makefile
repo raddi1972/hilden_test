@@ -1,20 +1,36 @@
+# This Makefile is designed to be simple and readable.  It does not
+# aim at portability.  It requires GNU Make.
 
-all: hilden
+BASE = calc++
+BISON = bison
+CXX = g++
+FLEX = flex
 
-parser.c parser.h: parser.y
-	bison -d -o parser.c parser.y
+all: $(BASE)
 
-lexer.c: lexer.l
-	flex -o lexer.c lexer.l
+%.cc %.hh %.html %.gv: %.yy
+	$(BISON) $(BISONFLAGS) --html --graph -o $*.cc $<
 
-parser.o lexer.o: lexer.c parser.c
-	g++ -c lexer.c parser.c
+%.cc: %.ll
+	$(FLEX) $(FLEXFLAGS) -o$@ $<
 
-Number.o: Number.cc Number.hh
-	g++ -c Number.cc
+%.o: %.cc
+	$(CXX) $(CXXFLAGS) -c -o$@ $<
 
-hilden: parser.o lexer.o Number.o
-	g++ -o output/hilden lexer.o parser.o Number.o
+$(BASE): $(BASE).o driver.o parser.o scanner.o Number.o
+	$(CXX) -o $@ $^
 
-clean: *.o *.c *.h
-	rm *.o *.c *.h
+$(BASE).o: parser.hh
+parser.o: parser.hh
+scanner.o: parser.hh
+
+run: $(BASE)
+	@echo "Type arithmetic expressions.  Quit with ctrl-d."
+	./$< -
+
+CLEANFILES =										\
+  $(BASE) *.o										\
+  parser.hh parser.cc parser.output parser.xml parser.html parser.gv location.hh	\
+  scanner.cc
+clean:
+	rm -f $(CLEANFILES)

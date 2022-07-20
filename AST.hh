@@ -23,7 +23,7 @@ private:
     ValueType ret_type;
 
 public:
-    FunctionCallAST(const std::string& name, const std::vector<std::unique_ptr<ExpressionAST>> args, ValueType ret_type)
+    FunctionCallAST(const std::string& name, std::vector<std::unique_ptr<ExpressionAST>> args, ValueType ret_type)
     : name(name), args(std::move(args)), ret_type(ret_type) {}
 };
 
@@ -35,6 +35,10 @@ private:
 public:
     LiteralAST(std::unique_ptr<Number> value)
     : value(std::move(value)), type(value->get_type()) {}
+
+    const Number* get_value() {
+        return value.get();
+    }
 };
 
 
